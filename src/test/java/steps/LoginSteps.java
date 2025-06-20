@@ -6,6 +6,8 @@ import org.openqa.selenium.WebDriver;
 import pages.LoginPage;
 import utils.DriverFactory;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 public class LoginSteps {
 
     WebDriver driver = DriverFactory.getDriver();
@@ -16,20 +18,16 @@ public class LoginSteps {
         driver.get("https://practicetestautomation.com/practice-test-login/");
     }
 
-    @When("I enter valid credentials")
-    public void iEnterValidCredentials() {
-        loginPage.enterUsername("admin");
-        loginPage.enterPassword("password");
-    }
-
-    @And("I click the login button")
-    public void iClickLogin() {
+    @When("I login with username {string} and password {string}")
+    public void iLoginWithUsernameAndPassword(String username, String password) {
+        loginPage.enterUsername(username);
+        loginPage.enterPassword(password);
         loginPage.clickLogin();
     }
 
-    @Then("I should be logged in")
-    public void iShouldBeLoggedIn() {
-        // Add assertion here
+    @Then("I should see the message {string}")
+    public void iShouldSeeTheMessage(String expectedMessage) {
+        assertTrue(loginPage.getPageSource().contains(expectedMessage));
     }
 
     @After

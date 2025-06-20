@@ -8,21 +8,27 @@ public class LoginPage {
 
     private By usernameField = By.id("username");
     private By passwordField = By.id("password");
-    private By loginButton = By.id("login");
+    private By loginButton = By.id("submit");
 
     public LoginPage(WebDriver driver) {
         this.driver = driver;
     }
 
     public void enterUsername(String username) {
+        driver.findElement(usernameField).clear();
         driver.findElement(usernameField).sendKeys(username);
     }
 
     public void enterPassword(String password) {
+        driver.findElement(passwordField).clear();
         driver.findElement(passwordField).sendKeys(password);
     }
 
     public void clickLogin() {
         driver.findElement(loginButton).click();
+    }
+
+    public String getPageSource() {
+        return driver.getPageSource();
     }
 }
